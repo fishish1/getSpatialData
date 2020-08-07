@@ -102,6 +102,7 @@ get_data <- function(records, dir_out = NULL, md5_check = TRUE, force = FALSE, a
   out("Assembling dataset URLs...")
   records$dataset_url <- NA
   records[sub,]$dataset_url <- .get_ds_urls(records[sub,])
+  message(records$dataset_url)
   
   # create directories
   dir_out <- .check_dir_out(dir_out, "datasets")
