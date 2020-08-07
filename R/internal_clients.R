@@ -62,9 +62,11 @@
       
       if(x$level == "l1"){
         # assemble index url
+        out(x$record_id)
         hv <- strsplit(x$record_id, "_")[[1]][3]
+        out(hv)
         index_url <- paste0(getOption("gSD.api")$aws.l8, substr(hv, 1, 3), "/", substr(hv, 4, 6), "/", x$record_id, "/index.html")
-        
+        out(index_url)
         # get file urls
         list(paste0(gsub("index.html", "", index_url), .sapply(as.character(xml_children(xml_children(xml_contents(content(.get(index_url), encoding = "UTF-8"))[2])[4])), function(y){
           strsplit(y,  '\"')[[1]][2]
