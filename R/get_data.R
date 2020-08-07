@@ -100,7 +100,7 @@ get_data <- function(records, dir_out = NULL, md5_check = TRUE, force = FALSE, a
   
   # get URLs
   out("Assembling dataset URLs...")
-  records=as.data.frame(records)
+  #records=as.data.frame(records)
   records$dataset_url <- NA
   records[sub,]$dataset_url <- .get_ds_urls(records[sub,])
   out(records$dataset_url)
