@@ -127,7 +127,8 @@
       
       if(x$level == "l1"){
        if(!dir.exists(file)) catch <- try(dir.create(file, recursive = T), silent = T)
-        list(paste0(file, "/", .sapply(unlist(x$dataset_url, recursive = T), function(x) tail(strsplit(x, "/")[[1]], n = 1), USE.NAMES = F)))
+       # list(paste0(file, "/", .sapply(unlist(x$dataset_url, recursive = T), function(x) tail(strsplit(x, "/")[[1]], n = 1), USE.NAMES = F)))
+        list(paste0(file, "/", unlist(x$dataset_url, recursive = T), function(x) tail(strsplit(x, "/")[[2]], n = 1), USE.NAMES = F)))
      } else{
         paste0(file, "_LEVEL_", x$level, ".tar.gz")
       } 
