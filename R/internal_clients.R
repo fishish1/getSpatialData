@@ -73,7 +73,7 @@
     ###    }, USE.NAMES = F)))
     ###  } else{
         x[["gSD.espa_item"]][["product_dload_url"]]
-     }
+    ### }
       # MODIS LAADS
     } else if(x$product_group == "MODIS"){
       
