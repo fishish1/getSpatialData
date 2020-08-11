@@ -125,12 +125,12 @@
       
     } else if(x$product_group == "Landsat"){
       
-      if(x$level == "l1"){
-        if(!dir.exists(file)) catch <- try(dir.create(file, recursive = T), silent = T)
-        list(paste0(file, "/", .sapply(unlist(x$dataset_url, recursive = T), function(x) tail(strsplit(x, "/")[[1]], n = 1), USE.NAMES = F)))
-      } else{
+    ###  if(x$level == "l1"){
+    ###    if(!dir.exists(file)) catch <- try(dir.create(file, recursive = T), silent = T)
+    ###    list(paste0(file, "/", .sapply(unlist(x$dataset_url, recursive = T), function(x) tail(strsplit(x, "/")[[1]], n = 1), USE.NAMES = F)))
+    ###  } else{
         paste0(file, "_LEVEL_", x$level, ".tar.gz")
-      } 
+    ###  } 
     } else if(any(x$product_group == "MODIS", x$product_group == "SRTM")){
       paste0(x$gSD.dir, "/", tail(strsplit(x$dataset_url, "/")[[1]], n=1)[1])
     } else NA
