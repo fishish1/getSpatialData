@@ -60,7 +60,25 @@
       # Landsat 8 Level 1A AWS
     } else if(x$product_group == "Landsat"){
       
-    ###  if(x$level == "l1"){
+     if(x$level == "l1"){
+       
+            fn <- gsub("Entity ID: ", "", strsplit(x$summary, ", ")[[1]][1]) #positional
+      ydoy <- gsub("A", "", strsplit(fn, "[.]")[[1]][2]) #positional
+      url <- paste0(getOption("gSD.api")$laads, toString(as.numeric(strsplit(fn, "[.]")[[1]][4])), "/", strsplit(fn, "[.]")[[1]][1], "/", substr(ydoy, 1, 4),
+                    "/", substr(ydoy, 5, nchar(ydoy)), "/", fn)
+      
+      # test url
+      if(http_error(url)){
+        fn.names <- .get(paste0(paste0(head(strsplit(url, "/")[[1]], n = -1), collapse = "/"), ".csv"))
+        fn.names <- .sapply(gsub("\r", "", strsplit(content(fn.names), "\n")[[1]][-1]), function(y) strsplit(y, ",")[[1]][1], USE.NAMES = F)
+        
+        # assign correct fn
+        fn <- grep(paste0(strsplit(tail(strsplit(url, "/")[[1]], n=1), "[.]")[[1]][1:4], collapse = "."), fn.names, value = T)
+        
+        # redefine URL and file
+        return(paste0(paste0(head(strsplit(url, "/")[[1]], n=-1), collapse = "/"), "/", fn))
+      } else return(url)
+       
     ###    # assemble index url
     ###    out(x$record_id)
     ###    hv <- strsplit(x$record_id, "_")[[1]][3]
@@ -71,9 +89,9 @@
     ###    list(paste0(gsub("index.html", "", index_url), .sapply(as.character(xml_children(xml_children(xml_contents(content(.get(index_url), encoding = "UTF-8"))[2])[4])), function(y){
     ###      strsplit(y,  '\"')[[1]][2]
     ###    }, USE.NAMES = F)))
-    ###  } else{
+     } else{
         x[["gSD.espa_item"]][["product_dload_url"]]
-    ### }
+     }
       # MODIS LAADS
     } else if(x$product_group == "MODIS"){
       
